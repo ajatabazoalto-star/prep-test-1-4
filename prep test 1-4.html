@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Picken-Glish Aviation ✈️🐔</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --azul: #2989d8;
+    --azul-oscuro: #1e5799;
+    --navy: #0b1f3a;
+    --navy2: #122a4d;
+    --verde: #27ae60;
+    --amarillo: #f39c12;
+    --rojo: #e74c3c;
+    --rosa: #ff6b9d;
+    --morado: #9b59b6;
+    --gris: #f4f7fa;
+    --texto: #2c3e50;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--gris);
+    color: var(--texto);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ============ SIDEBAR ============ */
+  .sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+    color: white;
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: fixed;
+    height: 100vh;
+    box-shadow: 6px 0 30px rgba(0,0,0,0.2);
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 6px; }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+
+  .logo {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 22px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 16px;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+  }
+
+  .logo-emoji {
+    font-size: 1.9rem;
+    animation: fly 3s ease-in-out infinite;
+  }
+
+  @keyframes fly {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-5px) rotate(5deg); }
+  }
+
+  .sidebar-section-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.5;
+    padding: 15px 15px 5px;
+    font-weight: 700;
+  }
+
+  .sidebar-item {
+    padding: 13px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    font-size: 0.92rem;
+    border: none;
+    background: none;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .sidebar-item:hover {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    transform: translateX(5px);
+  }
+
+  .sidebar-item.active {
+    background: white;
+    color: var(--navy);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  }
+
+  .sidebar-item .icon { font-size: 1.3rem; }
+
+  /* ============ MAIN ============ */
+  .main {
+    margin-left: 280px;
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  /* ============ TOPBAR ============ */
+  .topbar {
+    background: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .topbar-info h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.6rem;
+    color: var(--navy);
+    font-weight: 800;
+  }
+
+  .topbar-info p {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    margin-top: 2px;
+  }
+
+  .topbar-stats {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .stat-pill {
+    background: linear-gradient(135deg, #fff5e6, #ffe8cc);
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--amarillo);
+    border: 2px solid #ffd699;
+  }
+
+  .stat-pill.verde {
+    background: linear-gradient(135deg, #e6f9ed, #c8f0d6);
+    color: var(--verde);
+    border-color: #a3e4b8;
+  }
+
+  .stat-pill.rosa {
+    background: linear-gradient(135deg, #e6f0ff, #cce0ff);
+    color: var(--azul);
+    border-color: #a8c8f0;
+  }
+
+  /* ============ CONTENIDO ============ */
+  .contenido {
+    padding: 30px 40px 60px;
+  }
+
+  /* ============ GRID UNIDADES ============ */
+  .grid-unidades {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 22px;
+    margin-top: 10px;
+  }
+
+  .unidad-card {
+    background: white;
+    border-radius: 22px;
+    padding: 26px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(11,31,58,0.08);
+    border: 3px solid transparent;
+  }
+
+  .unidad-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 8px;
+    background: linear-gradient(90deg, var(--azul), var(--verde));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .unidad-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 22px 45px rgba(11,31,58,0.18);
+    border-color: var(--azul);
+  }
+
+  .unidad-card:hover::before { transform: scaleX(1); }
+
+  .unidad-icon {
+    font-size: 3.5rem;
+    margin-bottom: 14px;
+    display: block;
+    line-height: 1;
+  }
+
+  .unidad-card h3 {
+    font-family: 'Baloo 2', cursive;
+    color: var(--navy);
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    font-weight: 800;
+  }
+
+  .unidad-card .num {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #95a5a6;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .unidad-card p {
+    color: #7f8c8d;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .unidad-badge {
+    display: inline-block;
+    padding: 5px 14px;
+    background: #e8f4fd;
+    color: var(--azul);
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 6px;
+  }
+
+  .unidad-badge.aviation { background: #fde6d6; color: #d35400; }
+  .unidad-badge.test { background: #e8f9ee; color: var(--verde); }
+
+  /* ============ VISTA DE UNIDAD ============ */
+  .vista-unidad { display: none; }
+  .vista-unidad.activa { display: block; animation: fadeUp 0.4s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .volver-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 2px solid #e1ecf7;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 22px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .volver-btn:hover {
+    background: var(--azul);
+    color: white;
+    border-color: var(--azul);
+    transform: translateX(-3px);
+  }
+
+  /* TABS */
+  .tabs-actividades {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    background: white;
+    padding: 8px;
+    border-radius: 18px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+  }
+
+  .tab-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 700;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    transition: all 0.25s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tab-btn:hover { background: #f4f7fa; color: var(--azul); }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--navy), var(--navy2));
+    color: white;
+    box-shadow: 0 4px 15px rgba(11,31,58,0.35);
+  }
+
+  /* VOCABULARIO */
+  .grid-vocab {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+
+  .vocab-card {
+    background: white;
+    border-radius: 18px;
+    padding: 20px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 3px solid #f0f4f8;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vocab-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: var(--azul);
+    box-shadow: 0 15px 35px rgba(41,137,216,0.2);
+  }
+
+  .vocab-card .vocab-emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+    line-height: 1;
+    transition: transform 0.3s;
+  }
+
+  .vocab-card:hover .vocab-emoji { transform: scale(1.15) rotate(-5deg); }
+
+  .vocab-card .vocab-palabra {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+
+  .vocab-card .vocab-traduccion {
+    font-size: 0.82rem;
+    color: #95a5a6;
+    font-weight: 600;
+  }
+
+  .audio-indicator {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 28px; height: 28px;
+    background: var(--azul);
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .vocab-card:hover .audio-indicator { opacity: 1; }
+
+  /* GRAMÁTICA */
+  .grammar-box {
+    background: white;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    border-left: 6px solid var(--amarillo);
+  }
+
+  .grammar-box h3 {
+    font-family: 'Baloo 2', cursive;
+    color: var(--amarillo);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .grammar-ejemplo {
+    background: #fffbee;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border-left: 4px solid var(--amarillo);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .grammar-ejemplo:hover { background: #fff6d6; }
+
+  .grammar-ejemplo .en {
+    font-weight: 800;
+    color: var(--navy);
+    font-size: 1.05rem;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .grammar-ejemplo .es {
+    color: #7f8c8d;
+    font-size: 0.88rem;
+    font-style: italic;
+  }
+
+  /* LISTENING */
+  .listening-box {
+    background: linear-gradient(135deg, #f8fbff, #eaf4ff);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 3px dashed #c5dff5;
+  }
+
+  .listening-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .listening-icon:hover { transform: scale(1.1); }
+
+  .listening-box h3 {
+    font-family: 'Baloo 2', cursive;
+    color: var(--navy);
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+  }
+
+  .listening-box p { color: #7f8c8d; font-size: 0.9rem; margin-bottom: 18px; }
+
+  .play-btn {
+    background: linear-gradient(135deg, var(--verde), #1e8449);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 25px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #1e8449;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+
+  .play-btn:hover { background: #2ecc71; }
+  .play-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #1e8449; }
+
+  /* READING */
+  .reading-box {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    line-height: 1.8;
+    font-size: 1.05rem;
+    color: #34495e;
+  }
+
+  .reading-box h3 {
+    font-family: 'Baloo 2', cursive;
+    color: var(--navy);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+  }
+
+  /* EJERCICIOS / PRETEST */
+  .ejercicio-box {
+    background: white;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+  }
+
+  .ejercicio-pregunta {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+  }
+
+  .opciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .opcion-btn {
+    padding: 16px 14px;
+    border: 3px solid #e1ecf7;
+    background: white;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--texto);
+    transition: all 0.25s;
+    font-family: inherit;
+    text-align: left;
+    position: relative;
+  }
+
+  .opcion-btn:hover:not(:disabled) {
+    border-color: var(--azul);
+    color: var(--azul);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(41,137,216,0.15);
+  }
+
+  .opcion-btn.correcta {
+    background: #d5f4e6;
+    border-color: var(--verde);
+    color: var(--verde);
+  }
+
+  .opcion-btn.incorrecta {
+    background: #fde2e2;
+    border-color: var(--rojo);
+    color: var(--rojo);
+  }
+
+  .opcion-btn:disabled { cursor: not-allowed; }
+
+  .feedback {
+    margin-top: 15px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .feedback.show { display: flex; animation: fadeUp 0.3s; }
+  .feedback.ok { background: #d5f4e6; color: var(--verde); }
+  .feedback.err { background: #fde2e2; color: var(--rojo); }
+
+  /* SCORE PANEL */
+  .score-panel {
+    background: linear-gradient(135deg, var(--navy), var(--navy2));
+    color: white;
+    border-radius: 22px;
+    padding: 30px;
+    margin-top: 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(11,31,58,0.3);
+  }
+
+  .score-panel h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .score-panel .score-big {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--amarillo);
+    margin: 15px 0;
+    font-family: 'Baloo 2', cursive;
+  }
+
+  .score-panel .score-sub {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+  }
+
+  .score-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .score-item {
+    background: rgba(255,255,255,0.15);
+    padding: 15px 25px;
+    border-radius: 15px;
+    min-width: 130px;
+  }
+
+  .score-item .val {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--amarillo);
+    font-family: 'Baloo 2', cursive;
+  }
+
+  .score-item .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    font-weight: 700;
+  }
+
+  .reintentar-btn {
+    margin-top: 25px;
+    background: var(--amarillo);
+    color: var(--navy);
+    border: none;
+    padding: 14px 32px;
+    border-radius: 25px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    box-shadow: 0 6px 0 #b07200;
+  }
+
+  .reintentar-btn:hover { background: #ffb833; }
+  .reintentar-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #b07200; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sidebar { width: 220px; }
+    .main { margin-left: 220px; }
+    .contenido { padding: 20px; }
+    .topbar { padding: 15px 20px; }
+  }
+
+  @media (max-width: 700px) {
+    body { flex-direction: column; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      overflow-x: auto;
+      padding: 12px;
+      gap: 8px;
+    }
+    .sidebar .logo { margin-bottom: 0; padding: 8px 12px; font-size: 0.9rem; white-space: nowrap; }
+    .sidebar-section-title { display: none; }
+    .sidebar-item { white-space: nowrap; padding: 10px 14px; font-size: 0.85rem; }
+    .main { margin-left: 0; }
+    .topbar { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .topbar-info h1 { font-size: 1.3rem; }
+    .score-panel .score-big { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <span class="logo-emoji">✈️</span>
+    <span>Picken-Glish<br><small style="font-size:0.65rem;opacity:0.7;">AVIATION</small></span>
+  </div>
+
+  <button class="sidebar-item active" onclick="mostrarInicio(this)">
+    <span class="icon">🏠</span> Inicio
+  </button>
+
+  <div class="sidebar-section-title">Flights</div>
+
+  <button class="sidebar-item" onclick="abrirUnidad(0, this)">
+    <span class="icon">🛫</span> Flight 1 · To Be
+  </button>
+  <button class="sidebar-item" onclick="abrirUnidad(1, this)">
+    <span class="icon">🛬</span> Flight 2 · Simple Present
+  </button>
+  <button class="sidebar-item" onclick="abrirUnidad(2, this)">
+    <span class="icon">👨‍👩‍👧</span> Flight 3 · Family & House
+  </button>
+  <button class="sidebar-item" onclick="abrirUnidad(3, this)">
+    <span class="icon">📋</span> Flight 4 · Credentials
+  </button>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <header class="topbar">
+    <div class="topbar-info">
+      <h1 id="tituloTop">¡Bienvenido, futuro piloto! ✈️</h1>
+      <p id="subtituloTop">Aprende Aviation English con Picken-Glish Aviation</p>
+    </div>
+    <div class="topbar-stats">
+      <div class="stat-pill">⭐ <span id="xp">0</span> XP</div>
+      <div class="stat-pill verde">✅ <span id="aciertos">0</span> aciertos</div>
+      <div class="stat-pill rosa">📊 <span id="porcentaje">0</span>%</div>
+    </div>
+  </header>
+
+  <div class="contenido">
+    <div id="vistaInicio" class="vista-unidad activa">
+      <h2 style="font-family:'Baloo 2';color:var(--navy);margin-bottom:8px;font-size:1.8rem;">📚 Elige tu Flight</h2>
+      <p style="color:#7f8c8d;margin-bottom:25px;">Vocabulario, gramática, listening y ejercicios de inglés aeronáutico.</p>
+      <div class="grid-unidades" id="gridUnidades"></div>
+    </div>
+    <div id="vistaUnidad" class="vista-unidad"></div>
+  </div>
+</main>
+
+<script>
+/* =====================================================
+   CONTENIDO DE LOS 4 FLIGHTS - AVIATION ENGLISH
+   ===================================================== */
+const UNIDADES = [
+  /* ========== FLIGHT 1 ========== */
+  {
+    id: 1,
+    titulo: "Flight 1 — To Be & Actions",
+    emoji: "🛫",
+    desc: "Presente simple del verbo TO BE + Presente Progresivo + roles de aviación.",
+    vocab: [
+      { emoji: "👨‍✈️", en: "Pilot", es: "Piloto" },
+      { emoji: "🧑‍✈️", en: "Co-pilot", es: "Copiloto" },
+      { emoji: "👩‍✈️", en: "Flight Attendant", es: "Azafata/Auxiliar" },
+      { emoji: "🗼", en: "Air Traffic Controller", es: "Controlador aéreo" },
+      { emoji: "🧳", en: "Passenger", es: "Pasajero" },
+      { emoji: "🔧", en: "Aircraft Mechanic", es: "Mecánico de avión" },
+      { emoji: "🦺", en: "Marshaller", es: "Señalero" },
+      { emoji: "📦", en: "Baggage Handler", es: "Maletero" },
+      { emoji: "🖥️", en: "Dispatcher", es: "Despachador" },
+      { emoji: "🛡️", en: "Security Officer", es: "Oficial de seguridad" },
+      { emoji: "🛫", en: "Flying", es: "Volando" },
+      { emoji: "🛬", en: "Landing", es: "Aterrizando" },
+      { emoji: "🅿️", en: "Taxiing", es: "Rodando" },
+      { emoji: "🔍", en: "Checking", es: "Revisando" },
+      { emoji: "☕", en: "Serving", es: "Sirviendo" }
+    ],
+    grammar: [
+      { titulo: "Verb TO BE (is / are / am)", en: "The pilot is flying. / The pilots are flying. / I am a pilot.", es: "El piloto está volando. / Los pilotos están volando. / Soy piloto." },
+      { titulo: "Singular vs Plural", en: "The mechanic is checking the engine. / The mechanics are checking the engines.", es: "El mecánico está revisando el motor. / Los mecánicos están revisando los motores." },
+      { titulo: "Present Progressive (-ing)", en: "She is serving coffee. They are boarding the aircraft.", es: "Ella está sirviendo café. Ellos están abordando el avión." },
+      { titulo: "Negative: is not / are not", en: "The pilot is not sleeping. / The mechanics are not flying.", es: "El piloto no está durmiendo. / Los mecánicos no están volando." },
+      { titulo: "Questions with TO BE", en: "Is the aircraft landing? — Yes, it is. / No, it isn't.", es: "¿Está aterrizando el avión? — Sí. / No." }
+    ],
+    listening: "Hello, this is the captain speaking. The pilot is flying the airplane at thirty thousand feet. The co-pilot is reading the flight checklist. The flight attendants are serving coffee to the passengers. The controller is watching the radar screen. The mechanic is checking the engine. Welcome aboard.",
+    reading: {
+      titulo: "Working in Aviation",
+      texto: "The pilot is flying the airplane. The co-pilot is reading the checklist. The flight attendants are serving passengers. The air traffic controller is watching the radar. The mechanic is checking the engine. The marshaller is guiding the aircraft. The baggage handlers are loading suitcases. The dispatcher is checking the flight plan. The security officer is checking passports. Everyone is working together to keep the flight safe."
+    },
+    pretest: [
+      { p: "The pilot ___ flying the airplane.", o: ["is", "are", "am"], c: 0 },
+      { p: "The flight attendants ___ serving coffee.", o: ["is", "are", "am"], c: 1 },
+      { p: "I ___ a pilot.", o: ["is", "are", "am"], c: 2 },
+      { p: "Is the aircraft landing? — Yes, it ___", o: ["is", "are", "isn't"], c: 0 },
+      { p: "The pilot is not ___.", o: ["sleeping", "sleep", "slept"], c: 0 },
+      { p: "The mechanics ___ checking the engines.", o: ["is", "are", "am"], c: 1 },
+      { p: "What is the co-pilot doing? He is ___ the checklist.", o: ["reading", "read", "reads"], c: 0 },
+      { p: "¿Qué significa 'Marshaller'?", o: ["Piloto", "Señalero", "Mecánico"], c: 1 },
+      { p: "The security officer ___ passports.", o: ["is checking", "are checking", "am checking"], c: 0 },
+      { p: "Are the passengers boarding? — No, they ___.", o: ["are", "aren't", "isn't"], c: 1 },
+      { p: "¿Cómo se dice 'Pasajero' en inglés?", o: ["Pilot", "Passenger", "Crew"], c: 1 },
+      { p: "She is ___ coffee to the passengers.", o: ["serve", "serving", "served"], c: 1 }
+    ]
+  },
+
+  /* ========== FLIGHT 2 ========== */
+  {
+    id: 2,
+    titulo: "Flight 2 — Simple Present",
+    emoji: "🛬",
+    desc: "There is / There are + Presente Simple + operaciones en rampa.",
+    vocab: [
+      { emoji: "🚪", en: "Gate", es: "Puerta de embarque" },
+      { emoji: "🎫", en: "Seatbelt", es: "Cinturón de seguridad" },
+      { emoji: "🛣️", en: "Ramp", es: "Rampa" },
+      { emoji: "🎧", en: "Headset", es: "Audífonos" },
+      { emoji: "📦", en: "Cargo Hold", es: "Bodega de carga" },
+      { emoji: "🔗", en: "Fasten", es: "Abrochar" },
+      { emoji: "🅿️", en: "Park", es: "Estacionar" },
+      { emoji: "⬆️", en: "Load", es: "Cargar" },
+      { emoji: "✅", en: "Verify", es: "Verificar" },
+      { emoji: "📢", en: "Announce", es: "Anunciar" },
+      { emoji: "👨‍✈️", en: "Captain", es: "Capitán" },
+      { emoji: "🗣️", en: "Speak", es: "Hablar" },
+      { emoji: "🚶", en: "Walk", es: "Caminar" },
+      { emoji: "🔍", en: "Inspect", es: "Inspeccionar" },
+      { emoji: "📋", en: "Checklist", es: "Lista de verificación" }
+    ],
+    grammar: [
+      { titulo: "There is / There are", en: "There is one pilot. / There are five passengers.", es: "Hay un piloto. / Hay cinco pasajeros." },
+      { titulo: "Negative: There isn't / There aren't", en: "There isn't a mechanic. / There aren't any bags.", es: "No hay un mecánico. / No hay bolsas." },
+      { titulo: "Present Simple: He/She/It + verb-s", en: "The pilot verifies the checklist. She announces the safety brief.", es: "El piloto verifica la lista. Ella anuncia el briefing de seguridad." },
+      { titulo: "Present Simple: I/You/We/They + verb", en: "They load the bags. We verify the plans.", es: "Ellos cargan las bolsas. Nosotros verificamos los planes." },
+      { titulo: "Do / Does questions", en: "Do you load the cargo? / Does the captain park here?", es: "¿Cargas la carga? / ¿El capitán estaciona aquí?" }
+    ],
+    listening: "At Gate twelve, there are five passengers waiting. The captain fastens his seatbelt in the cockpit. The mechanic parks the aircraft on the ramp. The dispatcher announces the boarding time. The baggage handlers load the cargo hold with suitcases. The pilot verifies the flight plan before departure. Everything is ready for takeoff.",
+    reading: {
+      titulo: "Daily Operations on the Ramp",
+      texto: "Every morning, the ground crew starts working on the ramp. They load the cargo hold with bags and boxes. The mechanic inspects the aircraft and verifies the engines. The dispatcher checks the weather and the flight plan. The captain fastens his seatbelt and speaks with the tower. The flight attendants announce the safety instructions to the passengers. There are many people working together for a safe flight."
+    },
+    pretest: [
+      { p: "___ five passengers at Gate 12.", o: ["There is", "There are", "Is"], c: 1 },
+      { p: "___ one pilot in the cockpit.", o: ["There is", "There are", "Are"], c: 0 },
+      { p: "The pilot ___ the flight plan.", o: ["verify", "verifies", "verifying"], c: 1 },
+      { p: "They ___ the cargo every morning.", o: ["loads", "load", "loading"], c: 1 },
+      { p: "___ you load the cargo?", o: ["Does", "Do", "Is"], c: 1 },
+      { p: "___ the captain park here?", o: ["Does", "Do", "Are"], c: 0 },
+      { p: "¿Qué significa 'Cargo Hold'?", o: ["Cabina", "Bodega de carga", "Pista"], c: 1 },
+      { p: "The flight attendant ___ the safety brief.", o: ["announce", "announces", "announcing"], c: 1 },
+      { p: "There ___ any bags on the ramp.", o: ["isn't", "aren't", "is not"], c: 1 },
+      { p: "¿Cómo se dice 'Abrochar' (el cinturón)?", o: ["Park", "Fasten", "Load"], c: 1 },
+      { p: "The mechanic ___ the aircraft daily.", o: ["inspect", "inspects", "inspecting"], c: 1 },
+      { p: "Where is the pilot? He is ___ the cockpit.", o: ["on", "in", "at"], c: 1 }
+    ]
+  },
+
+  /* ========== FLIGHT 3 ========== */
+  {
+    id: 3,
+    titulo: "Flight 3 — Family & House",
+    emoji: "👨‍👩‍👧",
+    desc: "Adjetivos posesivos + Preposiciones (ON/IN/UNDER) + Números.",
+    vocab: [
+      { emoji: "👩", en: "Mother", es: "Madre" },
+      { emoji: "👨", en: "Father", es: "Padre" },
+      { emoji: "👧", en: "Daughter", es: "Hija" },
+      { emoji: "👦", en: "Son", es: "Hijo" },
+      { emoji: "👫", en: "Parents", es: "Padres" },
+      { emoji: "👨‍👩‍👧", en: "Family", es: "Familia" },
+      { emoji: "🏠", en: "House", es: "Casa" },
+      { emoji: "🏢", en: "Apartment", es: "Apartamento" },
+      { emoji: "🍳", en: "Kitchen", es: "Cocina" },
+      { emoji: "🛋️", en: "Living Room", es: "Sala" },
+      { emoji: "🛏️", en: "Bedroom", es: "Dormitorio" },
+      { emoji: "📚", en: "Book", es: "Libro" },
+      { emoji: "🚲", en: "Bicycle", es: "Bicicleta" },
+      { emoji: "🐱", en: "Cat", es: "Gato" },
+      { emoji: "🐶", en: "Dog", es: "Perro" },
+      { emoji: "🔑", en: "Keys", es: "Llaves" },
+      { emoji: "1️⃣", en: "One", es: "Uno" },
+      { emoji: "3️⃣", en: "Three", es: "Tres" },
+      { emoji: "5️⃣", en: "Five", es: "Cinco" },
+      { emoji: "🔟", en: "Ten", es: "Diez" }
+    ],
+    grammar: [
+      { titulo: "Possessive Adjectives", en: "My mother. His father. Her daughter. Our family. Their house.", es: "Mi madre. Su padre (de él). Su hija (de ella). Nuestra familia. Su casa (de ellos)." },
+      { titulo: "Prepositions: ON / IN / UNDER", en: "The book is on the table. The keys are in the bag. The cat is under the chair.", es: "El libro está sobre la mesa. Las llaves están en la bolsa. El gato está debajo de la silla." },
+      { titulo: "There is / There are with Numbers", en: "There is one cat. There are three children.", es: "Hay un gato. Hay tres niños." },
+      { titulo: "Is / Are questions", en: "Is this your book? / Are these your keys?", es: "¿Es este tu libro? / ¿Son estas tus llaves?" },
+      { titulo: "How many...?", en: "How many brothers do you have? — I have one brother.", es: "¿Cuántos hermanos tienes? — Tengo un hermano." }
+    ],
+    listening: "This is my family. My mother is in the kitchen. My father is reading his book. My daughter is playing with her cat. My son is riding his bicycle. There are five people in my family. Where are my keys? They are on the table. The dog is under the sofa. This is our house, and we love it.",
+    reading: {
+      titulo: "Families and Homes",
+      texto: "My family is big. There are five people: my mother, my father, my brother, my sister and me. We live in a house. My mother cooks in the kitchen. My father reads in the living room. My brother plays with his dog in the garden. My sister and I do our homework in the bedroom. There is a cat under my bed. His name is Whiskers. Our family is happy."
+    },
+    pretest: [
+      { p: "___ mother is a teacher. (yo)", o: ["My", "His", "Her"], c: 0 },
+      { p: "___ father is a pilot. (de él)", o: ["My", "His", "Her"], c: 1 },
+      { p: "The book is ___ the table.", o: ["on", "in", "under"], c: 0 },
+      { p: "The keys are ___ the bag.", o: ["on", "in", "under"], c: 1 },
+      { p: "The cat is ___ the chair.", o: ["on", "in", "under"], c: 2 },
+      { p: "There ___ one cat in the house.", o: ["is", "are", "am"], c: 0 },
+      { p: "There ___ three children in the family.", o: ["is", "are", "am"], c: 1 },
+      { p: "Is this ___ book? (de él)", o: ["her", "his", "my"], c: 1 },
+      { p: "¿Cómo se dice 'Cinco' en inglés?", o: ["Three", "Five", "Ten"], c: 1 },
+      { p: "How many brothers do you have? — I have ___ brother.", o: ["one", "two", "three"], c: 0 },
+      { p: "___ daughter is a doctor. (de ella)", o: ["His", "Her", "My"], c: 1 },
+      { p: "Are these ___ keys? (de ellos)", o: ["their", "his", "her"], c: 0 },
+      { p: "Where are the keys? — They are ___ the table.", o: ["on", "in", "under"], c: 0 },
+      { p: "¿Cómo se dice 'Madre' en inglés?", o: ["Father", "Mother", "Sister"], c: 1 },
+      { p: "___ family is very big. (nuestra)", o: ["Our", "Their", "His"], c: 0 }
+    ]
+  },
+
+  /* ========== FLIGHT 4 ========== */
+  {
+    id: 4,
+    titulo: "Flight 4 — Credentials & Work",
+    emoji: "📋",
+    desc: "Licencias, rutas, horas de vuelo y adjetivos operativos.",
+    vocab: [
+      { emoji: "📜", en: "License", es: "Licencia" },
+      { emoji: "📄", en: "Certificate", es: "Certificado" },
+      { emoji: "🏢", en: "Base", es: "Base" },
+      { emoji: "🛤️", en: "Route", es: "Ruta" },
+      { emoji: "⏱️", en: "Flight Hours", es: "Horas de vuelo" },
+      { emoji: "✊", en: "Hold", es: "Tener / Poseer" },
+      { emoji: "🗣️", en: "Speak", es: "Hablar" },
+      { emoji: "✔️", en: "Check", es: "Verificar" },
+      { emoji: "😴", en: "Rest", es: "Descansar" },
+      { emoji: "🛩️", en: "Fly", es: "Volar" },
+      { emoji: "🟢", en: "Serviceable", es: "Operativo" },
+      { emoji: "🔴", en: "Unserviceable", es: "Inoperativo" },
+      { emoji: "⚖️", en: "Stable", es: "Estable" },
+      { emoji: "⚠️", en: "Unstable", es: "Inestable" },
+      { emoji: "☀️", en: "Clear", es: "Despejado" },
+      { emoji: "🌫️", en: "Foggy", es: "Con niebla" },
+      { emoji: "🛡️", en: "Safe", es: "Seguro" },
+      { emoji: "☠️", en: "Dangerous", es: "Peligroso" },
+      { emoji: "🧘", en: "Composed", es: "Sereno" },
+      { emoji: "😰", en: "Stressed", es: "Estresado" }
+    ],
+    grammar: [
+      { titulo: "Questions: What / Who / Where", en: "What is your certificate number? Who is the captain? Where is your base?", es: "¿Cuál es tu número de certificado? ¿Quién es el capitán? ¿Dónde está tu base?" },
+      { titulo: "Do / Does questions", en: "Do you hold an ATPL? Does she speak English?", es: "¿Tienes una licencia ATPL? ¿Ella habla inglés?" },
+      { titulo: "Have / Has", en: "I have four thousand flight hours. She has a first-class medical certificate.", es: "Tengo cuatro mil horas de vuelo. Ella tiene un certificado médico de primera clase." },
+      { titulo: "Adjectives for conditions", en: "The autopilot is serviceable. The weather is foggy. The approach is unstable.", es: "El piloto automático está operativo. El clima está con niebla. La aproximación está inestable." },
+      { titulo: "Negatives: isn't / doesn't", en: "The aircraft isn't serviceable. She doesn't speak French.", es: "El avión no está operativo. Ella no habla francés." }
+    ],
+    listening: "Good morning. My name is Captain Smith. I hold an ATPL license with four thousand flight hours. I speak English and Spanish. I am based at Barajas Airport in Madrid. Today the route is Madrid to Paris. The weather is clear. The autopilot is serviceable. Everything is ready for departure. Cabin crew, prepare for boarding.",
+    reading: {
+      titulo: "Aviation Credentials",
+      texto: "Every professional pilot must hold a valid license and a medical certificate. Airline transport pilots have an ATPL license, which requires more than fifteen hundred flight hours. Pilots must rest before every flight. They check the weather: if it is foggy, the flight may be delayed. If the aircraft is unserviceable, the mechanic must repair it. The captain stays composed during emergencies, and the crew stays safe. Being a pilot is a great responsibility."
+    },
+    pretest: [
+      { p: "___ is your certificate number?", o: ["What", "Who", "Where"], c: 0 },
+      { p: "___ is the captain?", o: ["What", "Who", "Where"], c: 1 },
+      { p: "I ___ an ATPL license.", o: ["hold", "holds", "holding"], c: 0 },
+      { p: "She ___ English and Spanish.", o: ["speak", "speaks", "speaking"], c: 1 },
+      { p: "The autopilot is ___.", o: ["serviceable", "unserviceable", "foggy"], c: 0 },
+      { p: "The weather is ___. (con niebla)", o: ["clear", "foggy", "safe"], c: 1 },
+      { p: "The approach is ___ — perform a go-around!", o: ["stable", "unstable", "safe"], c: 1 },
+      { p: "I have four thousand flight ___.", o: ["hours", "minutes", "days"], c: 0 },
+      { p: "The captain stays ___ during emergencies.", o: ["stressed", "composed", "foggy"], c: 1 },
+      { p: "¿Qué significa 'Safe'?", o: ["Peligroso", "Seguro", "Estable"], c: 1 },
+      { p: "¿Cómo se dice 'Licencia' en inglés?", o: ["Certificate", "License", "Base"], c: 1 },
+      { p: "___ you speak French?", o: ["Do", "Does", "Is"], c: 0 },
+      { p: "___ she have a medical certificate?", o: ["Do", "Does", "Is"], c: 1 },
+      { p: "Where is your ___? — At Barajas Airport.", o: ["route", "base", "license"], c: 1 },
+      { p: "The route is Madrid ___ Paris.", o: ["in", "on", "to"], c: 2 }
+    ]
+  }
+];
+
+/* =====================================================
+   LÓGICA DE LA APP
+   ===================================================== */
+let xpActual = 0;
+let aciertosGlobales = 0;
+let totalPreguntasGlobal = 0;
+let unidadActual = null;
+
+// Render grid
+function renderGrid() {
+  const grid = document.getElementById('gridUnidades');
+  grid.innerHTML = UNIDADES.map((u, i) => `
+    <div class="unidad-card" onclick="abrirUnidad(${i}, null)">
+      <span class="num">FLIGHT ${u.id}</span>
+      <span class="unidad-icon">${u.emoji}</span>
+      <h3>${u.titulo}</h3>
+      <p>${u.desc}</p>
+      <span class="unidad-badge aviation">✈️ Aviation</span>
+      <span class="unidad-badge test">📝 ${u.pretest.length} preguntas</span>
+    </div>
+  `).join('');
+}
+
+// Inicio
+function mostrarInicio(btn) {
+  document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('vistaInicio').classList.add('activa');
+  document.getElementById('vistaUnidad').classList.remove('activa');
+  document.getElementById('tituloTop').textContent = '¡Bienvenido, futuro piloto! ✈️';
+  document.getElementById('subtituloTop').textContent = 'Aprende Aviation English con Picken-Glish Aviation';
+}
+
+// Abrir unidad
+function abrirUnidad(index, btn) {
+  if (btn) {
+    document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  unidadActual = UNIDADES[index];
+
+  document.getElementById('vistaInicio').classList.remove('activa');
+  const vista = document.getElementById('vistaUnidad');
+  vista.classList.add('activa');
+  document.getElementById('tituloTop').textContent = `${unidadActual.titulo} ${unidadActual.emoji}`;
+  document.getElementById('subtituloTop').textContent = unidadActual.desc;
+
+  vista.innerHTML = `
+    <button class="volver-btn" onclick="mostrarInicio(null)">← Volver al inicio</button>
+
+    <div class="tabs-actividades">
+      <button class="tab-btn active" onclick="cambiarTab(0, this)">📚 Vocabulario</button>
+      <button class="tab-btn" onclick="cambiarTab(1, this)">📝 Gramática</button>
+      <button class="tab-btn" onclick="cambiarTab(2, this)">🎧 Listening</button>
+      <button class="tab-btn" onclick="cambiarTab(3, this)">📖 Reading</button>
+      <button class="tab-btn" onclick="cambiarTab(4, this)">🎯 Pretest</button>
+    </div>
+
+    <div id="panelContenido"></div>
+  `;
+  renderPanel(0);
+}
+
+// Cambiar tab
+function cambiarTab(idx, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPanel(idx);
+}
+
+// Render panel
+function renderPanel(idx) {
+  const panel = document.getElementById('panelContenido');
+  const u = unidadActual;
+
+  if (idx === 0) {
+    // VOCABULARIO
+    panel.innerHTML = `
+      <div class="panel-actividad activa">
+        <h2 style="font-family:'Baloo 2';color:var(--navy);margin-bottom:8px;">📚 Vocabulario</h2>
+        <p style="color:#7f8c8d;margin-bottom:20px;">Haz clic en cada tarjeta para escuchar la pronunciación 🔊</p>
+        <div class="grid-vocab">
+          ${u.vocab.map(v => `
+            <div class="vocab-card" onclick="hablar('${v.en.replace(/'/g, "\\'")}')">
+              <div class="audio-indicator">🔊</div>
+              <span class="vocab-emoji">${v.emoji}</span>
+              <div class="vocab-palabra">${v.en}</div>
+              <div class="vocab-traduccion">${v.es}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (idx === 1) {
+    // GRAMÁTICA
+    panel.innerHTML = `
+      <div class="panel-actividad activa">
+        <h2 style="font-family:'Baloo 2';color:var(--navy);margin-bottom:8px;">📝 Gramática</h2>
+        <p style="color:#7f8c8d;margin-bottom:20px;">Haz clic en cada ejemplo para escucharlo 🔊</p>
+        ${u.grammar.map(g => `
+          <div class="grammar-box">
+            <h3>💡 ${g.titulo}</h3>
+            <div class="grammar-ejemplo" onclick="hablar('${g.en.replace(/'/g, "\\'")}')">
+              <span class="en">🔊 ${g.en}</span>
+              <span class="es">${g.es}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else if (idx === 2) {
+    // LISTENING
+    panel.innerHTML = `
+      <div class="panel-actividad activa">
+        <h2 style="font-family:'Baloo 2';color:var(--navy);margin-bottom:8px;">🎧 Listening</h2>
+        <p style="color:#7f8c8d;margin-bottom:20px;">Escucha con atención y repite en voz alta.</p>
+        <div class="listening-box">
+          <span class="listening-icon" onclick="hablar('${u.listening.replace(/'/g, "\\'")}')">🎧</span>
+          <h3>Audio del Flight ${u.id}</h3>
+          <p>Presiona el botón para escuchar el audio</p>
+          <button class="play-btn" onclick="hablar('${u.listening.replace(/'/g, "\\'")}')">▶ Reproducir audio</button>
+          <div style="margin-top:20px;padding:18px;background:white;border-radius:12px;text-align:left;font-size:0.95rem;color:#34495e;line-height:1.7;">
+            <strong style="color:var(--navy);">📄 Transcripción:</strong><br>
+            ${u.listening}
+          </div>
+        </div>
+      </div>
+    `;
+  } else if (idx === 3) {
+    // READING
+    panel.innerHTML = `
+      <div class="panel-actividad activa">
+        <h2 style="font-family:'Baloo 2';color:var(--navy);margin-bottom:8px;">📖 Reading</h2>
+        <p style="color:#7f8c8d;margin-bottom:20px;">Lee el texto y escúchalo en voz alta.</p>
+        <div class="reading-box">
+          <h3>${u.reading.titulo}</h3>
+          <p>${u.reading.texto}</p>
+          <button class="play-btn" style="margin-top:20px;" onclick="hablar('${u.reading.texto.replace(/'/g, "\\'")}')">▶ Leer en voz alta</button>
+        </div>
+      </div>
+    `;
+  } else if (idx === 4) {
+    // PRETEST
+    renderPretest(panel, u);
+  }
+}
+
+// Render Pretest
+function renderPretest(panel, u) {
+  let aciertos = 0;
+  let respondidas = 0;
+
+  panel.innerHTML = `
+    <div class="panel-actividad activa">
+      <h2 style="font-family:'Baloo 2';color:var(--navy);margin-bottom:8px;">🎯 Pretest — Flight ${u.id}</h2>
+      <p style="color:#7f8c8d;margin-bottom:20px;">Responde todas las preguntas. Se mostrará tu score al final.</p>
+      <div id="preguntasContenedor"></div>
+      <div class="score-panel" id="scorePanel" style="display:none;">
+        <h2>🏆 Resultado del Pretest</h2>
+        <div class="score-big" id="scoreBig">0%</div>
+        <div class="score-sub" id="scoreSub">0 de 0 correctas</div>
+        <div class="score-breakdown">
+          <div class="score-item">
+            <div class="val" id="scoreAciertos">0</div>
+            <div class="label">Aciertos</div>
+          </div>
+          <div class="score-item">
+            <div class="val" id="scoreErrores">0</div>
+            <div class="label">Errores</div>
+          </div>
+          <div class="score-item">
+            <div class="val" id="scoreTotal">0</div>
+            <div class="label">Total</div>
+          </div>
+        </div>
+        <button class="reintentar-btn" onclick="renderPanel(4)">🔄 Intentar de nuevo</button>
+      </div>
+    </div>
+  `;
+
+  const contenedor = document.getElementById('preguntasContenedor');
+  contenedor.innerHTML = u.pretest.map((p, i) => `
+    <div class="ejercicio-box" data-idx="${i}">
+      <div class="ejercicio-pregunta">❓ ${i + 1}. ${p.p}</div>
+      <div class="opciones-grid">
+        ${p.o.map((op, j) => `
+          <button class="opcion-btn" onclick="responderPretest(this, ${j === p.c}, ${i})">${op}</button>
+        `).join('')}
+      </div>
+      <div class="feedback"></div>
+    </div>
+  `).join('');
+
+  window._pretestAciertos = 0;
+  window._pretestRespondidas = 0;
+  window._pretestTotal = u.pretest.length;
+
+  // Guardar función de evaluación
+  window.responderPretest = function(btn, esCorrecta, idxPregunta) {
+    const box = btn.closest('.ejercicio-box');
+    if (box.dataset.respondida === '1') return;
+    box.dataset.respondida = '1';
+
+    const feedback = box.querySelector('.feedback');
+    const botones = box.querySelectorAll('.opcion-btn');
+    botones.forEach(b => b.disabled = true);
+
+    if (esCorrecta) {
+      btn.classList.add('correcta');
+      feedback.textContent = '✅ ¡Correcto! +10 XP';
+      feedback.className = 'feedback show ok';
+      window._pretestAciertos++;
+      sumarXP(10);
+      aciertosGlobales++;
+    } else {
+      btn.classList.add('incorrecta');
+      // Marcar la correcta
+      const correcta = u.pretest[idxPregunta].c;
+      botones[correcta].classList.add('correcta');
+      feedback.textContent = '❌ Incorrecto. La correcta está marcada en verde.';
+      feedback.className = 'feedback show err';
+    }
+    window._pretestRespondidas++;
+    totalPreguntasGlobal++;
+    actualizarStatsGlobal();
+
+    // Si ya respondió todo, mostrar score
+    if (window._pretestRespondidas === window._pretestTotal) {
+      mostrarScorePretest(u);
+    }
+  };
+}
+
+function mostrarScorePretest(u) {
+  const panel = document.getElementById('scorePanel');
+  panel.style.display = 'block';
+  const total = window._pretestTotal;
+  const ac = window._pretestAciertos;
+  const er = total - ac;
+  const pct = Math.round((ac / total) * 100);
+
+  document.getElementById('scoreBig').textContent = pct + '%';
+  document.getElementById('scoreSub').textContent = `${ac} de ${total} correctas`;
+  document.getElementById('scoreAciertos').textContent = ac;
+  document.getElementById('scoreErrores').textContent = er;
+  document.getElementById('scoreTotal').textContent = total;
+
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// XP y stats
+function sumarXP(cantidad) {
+  xpActual += cantidad;
+  document.getElementById('xp').textContent = xpActual;
+}
+
+function actualizarStatsGlobal() {
+  document.getElementById('aciertos').textContent = aciertosGlobales;
+  const pct = totalPreguntasGlobal > 0 ? Math.round((aciertosGlobales / totalPreguntasGlobal) * 100) : 0;
+  document.getElementById('porcentaje').textContent = pct;
+}
+
+// TTS
+function hablar(texto) {
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(texto);
+    u.lang = 'en-US';
+    u.rate = 0.85;
+    u.pitch = 1;
+    const voices = speechSynthesis.getVoices();
+    const enVoice = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang && v.lang.startsWith('en'));
+    if (enVoice) u.voice = enVoice;
+    speechSynthesis.speak(u);
+  }
+}
+window.speechSynthesis && window.speechSynthesis.getVoices();
+
+/* =====================================================
+   INICIALIZAR
+   ===================================================== */
+renderGrid();
+</script>
+
+</body>
+</html>
